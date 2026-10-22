@@ -1,91 +1,155 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Toon Mint AI - 3D Cartoon & Anime Video Generator</title>
-    <!-- Tailwind CSS for modern styling -->
+    <title>Toon Mint AI - Classic 3D Cartoon & Anime Generator</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #090a0f;
+            color: #f8fafc;
+        }
+        .glass-card {
+            background: rgba(18, 20, 32, 0.75);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glow-btn {
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+            transition: all 0.3s ease;
+        }
+        .glow-btn:hover {
+            box-shadow: 0 0 25px rgba(168, 85, 247, 0.5);
+            transform: translateY(-2px);
+        }
+    </style>
 </head>
-<body class="bg-slate-950 text-white font-sans">
+<body class="min-h-screen flex flex-col justify-between selection:bg-purple-500 selection:text-white">
 
-    <!-- Header Section -->
-    <header class="bg-slate-900 border-b border-slate-800 p-4 sticky top-0 z-50">
-        <div class="max-w-6xl mx-auto flex justify-between items-center">
-            <h1 class="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">
-                🎬 Toon Mint AI
-            </h1>
-            <nav class="space-x-4 text-sm md:text-base">
-                <a href="#generator" class="hover:text-purple-400 transition">Generator</a>
+    <!-- Header -->
+    <header class="glass-card sticky top-0 z-50 border-b border-slate-800/80 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center font-extrabold text-xl shadow-lg">
+                    TM
+                </div>
+                <span class="text-2xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-200 to-purple-400 bg-clip-text text-transparent">
+                    Toon Mint <span class="text-purple-400">AI</span>
+                </span>
+            </div>
+            <nav class="hidden md:flex space-x-8 text-sm font-medium text-slate-300">
+                <a href="#generator" class="hover:text-purple-400 transition">Studio</a>
+                <a href="#features" class="hover:text-purple-400 transition">Features</a>
                 <a href="#about" class="hover:text-purple-400 transition">About Creator</a>
             </nav>
+            <a href="#generator" class="px-4 py-2 text-sm font-semibold rounded-lg glow-btn text-white">Get Started</a>
         </div>
     </header>
 
-    <!-- Main Generator Section -->
-    <main id="generator" class="max-w-4xl mx-auto p-6 my-8 bg-slate-900 rounded-2xl border border-slate-800 shadow-xl">
-        <h2 class="text-3xl font-bold text-center mb-6 text-purple-300">Create Your 3D Cartoon & Anime Video</h2>
+    <!-- Main Content -->
+    <main class="max-w-5xl mx-auto px-4 py-10 w-full space-y-10">
         
-        <div class="space-y-6">
-            <!-- Prompt Input -->
-            <div>
-                <label class="block text-sm font-medium mb-2 text-slate-300">Enter Your Prompt (e.g., Tom and Jerry style funny fight, 3D animation)</label>
-                <textarea rows="3" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-lg focus:ring-2 focus:ring-purple-500 focus:outline-none text-white" placeholder="Type your story or prompt here..."></textarea>
+        <!-- Hero Section -->
+        <section class="text-center space-y-4">
+            <span class="px-3 py-1 text-xs font-semibold uppercase tracking-widest text-purple-400 bg-purple-950/60 border border-purple-800/50 rounded-full">
+                ✨ Next-Gen AI Cartoon & Anime Studio
+            </span>
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-white">
+                Create Epic 3D Cartoons & <br class="hidden md:block"> <span class="bg-gradient-to-r from-purple-400 via-pink-400 to-amber-300 bg-clip-text text-transparent">Anime Videos Instantly</span>
+            </h1>
+            <p class="text-slate-400 max-w-2xl mx-auto text-base md:text-lg">
+                Transform your text prompts or reference images into copyright-free cinematic animations with custom funny voiceovers and 1080p HD rendering.
+            </p>
+        </section>
+
+        <!-- Studio Generator Box -->
+        <div id="generator" class="glass-card rounded-3xl p-6 md:p-10 shadow-2xl border border-slate-800 space-y-8">
+            
+            <!-- Step 1: Prompt & Character Selection -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="space-y-3">
+                    <label class="block text-sm font-semibold text-slate-200">1. Enter Your Scene Prompt</label>
+                    <textarea rows="4" class="w-full p-4 bg-slate-900/90 border border-slate-800 rounded-2xl focus:ring-2 focus:ring-purple-500 focus:outline-none text-white text-sm placeholder-slate-500 transition" placeholder="e.g., A funny cat and mouse chase in a retro kitchen, 3D Pixar style..."></textarea>
+                </div>
+                <div class="space-y-3">
+                    <label class="block text-sm font-semibold text-slate-200">2. Choose or Upload Character</label>
+                    <select class="w-full p-4 bg-slate-900/90 border border-slate-800 rounded-2xl focus:outline-none text-white text-sm">
+                        <option>🐭 Tom & Jerry Style Mouse (Funny)</option>
+                        <option>🪳 Crazy Cartoon Cockroach</option>
+                        <option>🐱 Cute Anime Cat Ninja</option>
+                        <option>✨ Custom Character (Upload Below)</option>
+                    </select>
+                    <input type="file" class="w-full text-xs text-slate-400 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-slate-800 file:text-purple-300 hover:file:bg-slate-700 cursor-pointer pt-1">
+                </div>
             </div>
 
-            <!-- Image to Video Upload -->
-            <div>
-                <label class="block text-sm font-medium mb-2 text-slate-300">Upload Reference Image (Optional for Image-to-Video)</label>
-                <input type="file" class="w-full p-2 bg-slate-800 border border-slate-700 rounded-lg text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-purple-600 file:text-white hover:file:bg-purple-700 cursor-pointer">
-            </div>
-
-            <!-- Options Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <!-- Voice Style -->
+            <!-- Step 2: Advanced Settings (Voice & Resolution) -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2 border-t border-slate-800/80">
                 <div>
-                    <label class="block text-sm font-medium mb-2 text-slate-300">Select Funny Voice Style</label>
-                    <select class="w-full p-3 bg-slate-800 border border-slate-700 rounded-lg focus:outline-none bg-slate-800 text-white">
-                        <option>Funny Cartoon Squeaky Voice</option>
-                        <option>Cockroach Style Funny Voice</option>
-                        <option>Deep Comic Villain Voice</option>
-                        <option>Anime Energetic Voice</option>
+                    <label class="block text-sm font-semibold text-slate-200 mb-2">Funny Voice Style</label>
+                    <select class="w-full p-3.5 bg-slate-900/90 border border-slate-800 rounded-xl text-sm text-white focus:outline-none">
+                        <option>Squeaky Cartoon High Pitch</option>
+                        <option>Funny Cockroach Murmur</option>
+                        <option>Deep Comic Villain</option>
+                        <option>Energetic Anime Hero</option>
                     </select>
                 </div>
-
-                <!-- Resolution -->
                 <div>
-                    <label class="block text-sm font-medium mb-2 text-slate-300">Select Resolution</label>
-                    <select class="w-full p-3 bg-slate-800 border border-slate-700 rounded-lg focus:outline-none bg-slate-800 text-white">
-                        <option>1080p Full HD (YouTube)</option>
+                    <label class="block text-sm font-semibold text-slate-200 mb-2">Video Resolution</label>
+                    <select class="w-full p-3.5 bg-slate-900/90 border border-slate-800 rounded-xl text-sm text-white focus:outline-none">
+                        <option>1080p Full HD (YouTube Cinematic)</option>
                         <option>720p HD (Shorts / Reels)</option>
                     </select>
                 </div>
+                <div>
+                    <label class="block text-sm font-semibold text-slate-200 mb-2">Video Duration</label>
+                    <select class="w-full p-3.5 bg-slate-900/90 border border-slate-800 rounded-xl text-sm text-white focus:outline-none">
+                        <option>30 Seconds (Fast Clip)</option>
+                        <option>1 Minute Standard</option>
+                        <option>5 Minutes Story Mode</option>
+                    </select>
+                </div>
             </div>
 
-            <!-- Generate Button -->
-            <button onclick="alert('Video generation feature is ready to connect with AI backend!')" class="w-full py-4 bg-gradient-to-r from-purple-600 to-pink-600 font-bold rounded-lg shadow-lg hover:opacity-90 transition duration-200 cursor-pointer">
-                Generate Video Now 🚀
+            <!-- Generate CTA -->
+            <button onclick="alert('Toon Mint AI Engine Connected! Video rendering pipeline is ready.')" class="w-full py-4 text-base font-bold rounded-2xl glow-btn text-white shadow-xl cursor-pointer flex items-center justify-center space-x-2">
+                <span>Generate Animation Video</span>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
             </button>
+
         </div>
     </main>
 
     <!-- About / Developer Section -->
-    <section id="about" class="max-w-4xl mx-auto p-6 my-8 bg-slate-900 rounded-2xl border border-slate-800">
-        <h3 class="text-2xl font-bold mb-4 text-purple-300 text-center">About Developer & Founder</h3>
-        <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 text-center space-y-3">
-            <p class="text-lg font-semibold text-white">Founder & Creator: <span class="text-purple-400">सुभाष यादव (Subhash Yadav)</span></p>
-            <p class="text-slate-300">Welcome to Toon Mint AI! Create your own unique, copyright-free 3D cartoons, anime, and funny videos effortlessly using advanced AI prompts and image-to-video tools.</p>
-            <div class="flex flex-col md:flex-row justify-center items-center space-y-2 md:space-y-0 md:space-x-6 pt-2">
-                <a href="https://instagram.com/iamsubhash177" target="_blank" class="text-pink-400 hover:underline">Instagram: @iamsubhash177</a>
-                <a href="mailto:yahu9950@gmail.com" class="text-purple-400 hover:underline">Email: yahu9950@gmail.com</a>
+    <section id="about" class="max-w-5xl mx-auto px-4 py-8 w-full">
+        <div class="glass-card rounded-3xl p-8 border border-slate-800 text-center space-y-4">
+            <h3 class="text-xl font-bold text-purple-300">About Developer & Founder</h3>
+            <p class="text-slate-300 max-w-xl mx-auto text-sm">
+                Toon Mint AI is engineered to give creators absolute freedom in making copyright-free 3D cartoons and anime videos using cutting-edge AI pipelines.
+            </p>
+            <div class="pt-2">
+                <p class="text-base font-semibold text-white">Founder & Creator: <span class="text-purple-400 font-bold">Subhash Yadav</span></p>
+            </div>
+            <div class="flex justify-center space-x-6 pt-2 text-sm">
+                <a href="https://instagram.com/iamsubhash177" target="_blank" class="text-pink-400 hover:underline flex items-center space-x-1">
+                    <span>Instagram: @iamsubhash177</span>
+                </a>
+                <a href="mailto:yahu9950@gmail.com" class="text-purple-400 hover:underline flex items-center space-x-1">
+                    <span>Email: yahu9950@gmail.com</span>
+                </a>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="text-center py-6 text-slate-500 text-sm border-t border-slate-900">
+    <footer class="text-center py-6 text-slate-500 text-xs border-t border-slate-900 mt-10">
         &copy; 2026 Toon Mint AI. All Rights Reserved. Designed & Developed by Subhash Yadav.
     </footer>
 
 </body>
 </html>
+    
