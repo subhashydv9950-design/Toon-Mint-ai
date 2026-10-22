@@ -3,19 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Toon Mint AI - Classic 3D Cartoon & Anime Generator</title>
-    <!-- Tailwind CSS -->
+    <title>Toon Mint AI - Global Animation Studio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #090a0f;
-            color: #f8fafc;
+            background-color: #060709;
+            color: #f1f5f9;
         }
-        .glass-card {
-            background: rgba(18, 20, 32, 0.75);
-            backdrop-filter: blur(16px);
+        .glass {
+            background: rgba(15, 17, 23, 0.85);
+            backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
         .glow-btn {
@@ -23,133 +22,326 @@
             transition: all 0.3s ease;
         }
         .glow-btn:hover {
-            box-shadow: 0 0 25px rgba(168, 85, 247, 0.5);
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.6);
             transform: translateY(-2px);
         }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-purple-500 selection:text-white">
 
-    <!-- Header -->
-    <header class="glass-card sticky top-0 z-50 border-b border-slate-800/80 px-6 py-4">
+    <!-- Header Navigation -->
+    <header class="glass sticky top-0 z-50 border-b border-slate-800/80 px-6 py-4">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center font-extrabold text-xl shadow-lg">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('home')">
+                <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center font-extrabold text-xl shadow-lg">
                     TM
                 </div>
-                <span class="text-2xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-200 to-purple-400 bg-clip-text text-transparent">
+                <span class="text-2xl font-extrabold tracking-tight text-white">
                     Toon Mint <span class="text-purple-400">AI</span>
                 </span>
             </div>
-            <nav class="hidden md:flex space-x-8 text-sm font-medium text-slate-300">
-                <a href="#generator" class="hover:text-purple-400 transition">Studio</a>
-                <a href="#features" class="hover:text-purple-400 transition">Features</a>
-                <a href="#about" class="hover:text-purple-400 transition">About Creator</a>
+            
+            <!-- Navigation Tabs -->
+            <nav class="hidden md:flex space-x-2 bg-slate-900/90 p-1.5 rounded-2xl border border-slate-800 text-sm font-medium">
+                <button onclick="switchTab('home')" id="btn-home" class="px-4 py-2 rounded-xl transition text-purple-400 bg-purple-950/40" data-i18n="navHome">Home</button>
+                <button onclick="switchTab('characters')" id="btn-characters" class="px-4 py-2 rounded-xl transition text-slate-400 hover:text-white" data-i18n="navCharacters">Character Studio</button>
+                <button onclick="switchTab('generator')" id="btn-generator" class="px-4 py-2 rounded-xl transition text-slate-400 hover:text-white" data-i18n="navGenerator">Video Studio</button>
+                <button onclick="switchTab('about')" id="btn-about" class="px-4 py-2 rounded-xl transition text-slate-400 hover:text-white" data-i18n="navAbout">About Creator</button>
             </nav>
-            <a href="#generator" class="px-4 py-2 text-sm font-semibold rounded-lg glow-btn text-white">Get Started</a>
+
+            <!-- Global Language Selector & App Launcher -->
+            <div class="flex items-center space-x-3">
+                <select id="languageSelect" onchange="changeLanguage(this.value)" class="bg-slate-900 border border-slate-800 text-xs text-purple-300 font-semibold rounded-xl px-3 py-2 focus:outline-none cursor-pointer">
+                    <option value="en">🌐 English</option>
+                    <option value="hi">🇮🇳 हिंदी (Hindi)</option>
+                    <option value="ja">🇯🇵 日本語 (Japanese)</option>
+                    <option value="ko">🇰🇷 한국어 (Korean)</option>
+                    <option value="zh">🇨🇳 中文 (Chinese)</option>
+                    <option value="es">🇪🇸 Español (Spanish)</option>
+                    <option value="de">🇩🇪 Deutsch (German)</option>
+                    <option value="fr">🇫🇷 Français (French)</option>
+                    <option value="it">🇮🇹 Italiano (Italian)</option>
+                    <option value="id">🇮🇩 Bahasa (Indonesian)</option>
+                    <option value="fil">🇵🇭 Tagalog (Filipino)</option>
+                    <option value="ru">🇷🇺 Русский (Russian)</option>
+                    <option value="ar">🇸🇦 العربية (Arabic)</option>
+                    <option value="pt">🇧🇷 Português (Portuguese)</option>
+                    <option value="tr">🇹🇷 Türkçe (Turkish)</option>
+                    <option value="vi">🇻🇳 Tiếng Việt (Vietnamese)</option>
+                </select>
+                <button onclick="switchTab('generator')" class="hidden sm:block px-4 py-2 text-sm font-semibold rounded-xl glow-btn text-white" data-i18n="launchApp">Launch App</button>
+            </div>
         </div>
     </header>
+        <!-- Main Container -->
+    <main class="max-w-6xl mx-auto px-4 py-10 w-full flex-grow">
 
-    <!-- Main Content -->
-    <main class="max-w-5xl mx-auto px-4 py-10 w-full space-y-10">
-        
-        <!-- Hero Section -->
-        <section class="text-center space-y-4">
-            <span class="px-3 py-1 text-xs font-semibold uppercase tracking-widest text-purple-400 bg-purple-950/60 border border-purple-800/50 rounded-full">
-                ✨ Next-Gen AI Cartoon & Anime Studio
-            </span>
-            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-white">
-                Create Epic 3D Cartoons & <br class="hidden md:block"> <span class="bg-gradient-to-r from-purple-400 via-pink-400 to-amber-300 bg-clip-text text-transparent">Anime Videos Instantly</span>
-            </h1>
-            <p class="text-slate-400 max-w-2xl mx-auto text-base md:text-lg">
-                Transform your text prompts or reference images into copyright-free cinematic animations with custom funny voiceovers and 1080p HD rendering.
-            </p>
-        </section>
-
-        <!-- Studio Generator Box -->
-        <div id="generator" class="glass-card rounded-3xl p-6 md:p-10 shadow-2xl border border-slate-800 space-y-8">
-            
-            <!-- Step 1: Prompt & Character Selection -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="space-y-3">
-                    <label class="block text-sm font-semibold text-slate-200">1. Enter Your Scene Prompt</label>
-                    <textarea rows="4" class="w-full p-4 bg-slate-900/90 border border-slate-800 rounded-2xl focus:ring-2 focus:ring-purple-500 focus:outline-none text-white text-sm placeholder-slate-500 transition" placeholder="e.g., A funny cat and mouse chase in a retro kitchen, 3D Pixar style..."></textarea>
-                </div>
-                <div class="space-y-3">
-                    <label class="block text-sm font-semibold text-slate-200">2. Choose or Upload Character</label>
-                    <select class="w-full p-4 bg-slate-900/90 border border-slate-800 rounded-2xl focus:outline-none text-white text-sm">
-                        <option>🐭 Tom & Jerry Style Mouse (Funny)</option>
-                        <option>🪳 Crazy Cartoon Cockroach</option>
-                        <option>🐱 Cute Anime Cat Ninja</option>
-                        <option>✨ Custom Character (Upload Below)</option>
-                    </select>
-                    <input type="file" class="w-full text-xs text-slate-400 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-slate-800 file:text-purple-300 hover:file:bg-slate-700 cursor-pointer pt-1">
+        <!-- PAGE 1: HOME -->
+        <div id="home" class="tab-content active space-y-12 py-6">
+            <div class="text-center space-y-6 max-w-3xl mx-auto">
+                <span class="px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-purple-400 bg-purple-950/60 border border-purple-800/50 rounded-full shadow-inner" data-i18n="homeBadge">
+                    🚀 Next-Gen Original AI Animation Studio
+                </span>
+                <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight text-white leading-tight">
+                    <span data-i18n="homeTitle1">Create Cinematic</span> <span class="bg-gradient-to-r from-purple-400 via-pink-400 to-amber-300 bg-clip-text text-transparent" data-i18n="homeTitleHighlight">3D Cartoons & Anime</span> <span data-i18n="homeTitle2">From Prompts</span>
+                </h1>
+                <p class="text-slate-400 text-lg leading-relaxed" data-i18n="homeDesc">
+                    100% original, copyright-free funny cartoon videos, unique characters, and custom funny voiceovers built instantly with advanced AI.
+                </p>
+                <div class="flex justify-center gap-4 pt-4">
+                    <button onclick="switchTab('generator')" class="px-8 py-4 font-bold rounded-2xl glow-btn text-white shadow-xl" data-i18n="btnStartVideo">Start Creating Video</button>
+                    <button onclick="switchTab('characters')" class="px-8 py-4 font-bold rounded-2xl glass text-slate-200 hover:bg-slate-800 transition" data-i18n="btnExploreChar">Explore Characters</button>
                 </div>
             </div>
-
-            <!-- Step 2: Advanced Settings (Voice & Resolution) -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2 border-t border-slate-800/80">
-                <div>
-                    <label class="block text-sm font-semibold text-slate-200 mb-2">Funny Voice Style</label>
-                    <select class="w-full p-3.5 bg-slate-900/90 border border-slate-800 rounded-xl text-sm text-white focus:outline-none">
-                        <option>Squeaky Cartoon High Pitch</option>
-                        <option>Funny Cockroach Murmur</option>
-                        <option>Deep Comic Villain</option>
-                        <option>Energetic Anime Hero</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block text-sm font-semibold text-slate-200 mb-2">Video Resolution</label>
-                    <select class="w-full p-3.5 bg-slate-900/90 border border-slate-800 rounded-xl text-sm text-white focus:outline-none">
-                        <option>1080p Full HD (YouTube Cinematic)</option>
-                        <option>720p HD (Shorts / Reels)</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block text-sm font-semibold text-slate-200 mb-2">Video Duration</label>
-                    <select class="w-full p-3.5 bg-slate-900/90 border border-slate-800 rounded-xl text-sm text-white focus:outline-none">
-                        <option>30 Seconds (Fast Clip)</option>
-                        <option>1 Minute Standard</option>
-                        <option>5 Minutes Story Mode</option>
-                    </select>
-                </div>
-            </div>
-
-            <!-- Generate CTA -->
-            <button onclick="alert('Toon Mint AI Engine Connected! Video rendering pipeline is ready.')" class="w-full py-4 text-base font-bold rounded-2xl glow-btn text-white shadow-xl cursor-pointer flex items-center justify-center space-x-2">
-                <span>Generate Animation Video</span>
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-            </button>
-
         </div>
+
+        <!-- PAGE 2: CHARACTER STUDIO -->
+        <div id="characters" class="tab-content space-y-10">
+            <div class="text-center space-y-3">
+                <h2 class="text-3xl font-extrabold text-white" data-i18n="charStudioTitle">Original Character Studio</h2>
+                <p class="text-slate-400 text-sm" data-i18n="charStudioDesc">Select pre-built copyright-free characters or generate your custom character using AI prompts.</p>
+            </div>
+
+            <!-- Pre-built Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="glass rounded-3xl p-4 border border-slate-800 text-center space-y-3">
+                    <div class="w-full h-40 rounded-2xl bg-gradient-to-br from-purple-900/40 to-indigo-900/40 flex items-center justify-center text-6xl shadow-inner">🦊</div>
+                    <h3 class="font-bold text-lg text-white">Foxy Comic</h3>
+                    <p class="text-xs text-slate-400" data-i18n="foxDesc">Funny smart fox style for comedy sketches.</p>
+                    <button onclick="alert('Character Selected')" class="w-full py-2 bg-slate-800 rounded-xl text-xs font-semibold text-purple-300 hover:bg-purple-600 hover:text-white transition" data-i18n="selectBtn">Select Character</button>
+                </div>
+                <div class="glass rounded-3xl p-4 border border-slate-800 text-center space-y-3">
+                    <div class="w-full h-40 rounded-2xl bg-gradient-to-br from-pink-900/40 to-purple-900/40 flex items-center justify-center text-6xl shadow-inner">🤖</div>
+                    <h3 class="font-bold text-lg text-white">Boba Bot</h3>
+                    <p class="text-xs text-slate-400" data-i18n="botDesc">Silly mechanical robot with hilarious expressions.</p>
+                    <button onclick="alert('Character Selected')" class="w-full py-2 bg-slate-800 rounded-xl text-xs font-semibold text-purple-300 hover:bg-purple-600 hover:text-white transition" data-i18n="selectBtn">Select Character</button>
+                </div>
+                <div class="glass rounded-3xl p-4 border border-slate-800 text-center space-y-3">
+                    <div class="w-full h-40 rounded-2xl bg-gradient-to-br from-amber-900/40 to-red-900/40 flex items-center justify-center text-6xl shadow-inner">🥷</div>
+                    <h3 class="font-bold text-lg text-white">Chibi Ninja</h3>
+                    <p class="text-xs text-slate-400" data-i18n="ninjaDesc">Cute anime style ninja for funny action scenes.</p>
+                    <button onclick="alert('Character Selected')" class="w-full py-2 bg-slate-800 rounded-xl text-xs font-semibold text-purple-300 hover:bg-purple-600 hover:text-white transition" data-i18n="selectBtn">Select Character</button>
+                </div>
+                <div class="glass rounded-3xl p-4 border border-slate-800 text-center space-y-3">
+                    <div class="w-full h-40 rounded-2xl bg-gradient-to-br from-emerald-900/40 to-cyan-900/40 flex items-center justify-center text-6xl shadow-inner">👽</div>
+                    <h3 class="font-bold text-lg text-white">Zorg Alien</h3>
+                    <p class="text-xs text-slate-400" data-i18n="alienDesc">Weird cosmic creature with funny cartoon effects.</p>
+                    <button onclick="alert('Character Selected')" class="w-full py-2 bg-slate-800 rounded-xl text-xs font-semibold text-purple-300 hover:bg-purple-600 hover:text-white transition" data-i18n="selectBtn">Select Character</button>
+                </div>
+            </div>
+
+            <!-- Custom Character Generator Box -->
+            <div class="glass rounded-3xl p-6 md:p-8 border border-slate-800 space-y-4">
+                <h3 class="text-xl font-bold text-white" data-i18n="customCharTitle">✨ Create Your Custom Character via Prompt</h3>
+                <p class="text-slate-400 text-xs" data-i18n="customCharDesc">Enter a detailed description of your unique character, dress, expressions, and style, then let AI generate it instantly.</p>
+                <div class="flex flex-col md:flex-row gap-4">
+                    <input type="text" id="customCharacterPrompt" data-i18n-placeholder="customCharPlaceholder" placeholder="e.g., A funny blue monster wearing sunglasses..." class="flex-grow p-4 bg-slate-900 border border-slate-800 rounded-2xl text-sm text-white focus:outline-none">
+                    <button onclick="alert('Generating character...')" class="px-6 py-4 font-bold rounded-2xl glow-btn text-white text-sm whitespace-nowrap cursor-pointer" data-i18n="generateCharBtn">
+                        Generate Character 🎨
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE 3: VIDEO GENERATOR STUDIO -->
+        <div id="generator" class="tab-content space-y-8">
+            <div class="glass rounded-3xl p-6 md:p-10 border border-slate-800 space-y-6 max-w-4xl mx-auto">
+                <div class="text-center space-y-2">
+                    <h2 class="text-3xl font-extrabold text-white" data-i18n="vidStudioTitle">AI Video Generation Studio</h2>
+                    <p class="text-slate-400 text-sm" data-i18n="vidStudioDesc">Write your script/prompt or upload an image to render your 3D animation or anime video.</p>
+                </div>
+
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-300 mb-2" data-i18n="promptLabel">Video Prompt / Story Script</label>
+                        <textarea rows="3" class="w-full p-4 bg-slate-900 border border-slate-800 rounded-2xl text-white text-sm focus:outline-none" data-i18n-placeholder="promptPlaceholder" placeholder="Describe your funny cartoon scene or anime action..."></textarea>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-300 mb-2" data-i18n="imgUploadLabel">Upload Reference Image (Optional)</label>
+                            <input type="file" class="w-full text-xs text-slate-400 file:mr-4 file:py-3 file:px-4 file:rounded-xl file:border-0 file:bg-slate-800 file:text-purple-300 cursor-pointer">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-300 mb-2" data-i18n="voiceLabel">Funny Voice Style</label>
+                            <select class="w-full p-3.5 bg-slate-900 border border-slate-800 rounded-xl text-sm text-white focus:outline-none">
+                                <option data-i18n="voice1">High Pitch Funny Cartoon Voice</option>
+                                <option data-i18n="voice2">Silly Comic Villain Voice</option>
+                                <option data-i18n="voice3">Energetic Anime Hero Voice</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button onclick="alert('Rendering video...')" class="w-full py-4 font-bold rounded-2xl glow-btn text-white shadow-xl cursor-pointer" data-i18n="generateVideoBtn">
+                        Generate Animation Now 🎬
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE 4: ABOUT CREATOR -->
+        <div id="about" class="tab-content space-y-6 max-w-3xl mx-auto">
+            <div class="glass rounded-3xl p-8 border border-slate-800 text-center space-y-5">
+                <div class="w-20 h-20 rounded-full bg-gradient-to-tr from-purple-500 to-pink-500 mx-auto flex items-center justify-center text-3xl font-bold shadow-lg">
+                    SY
+                </div>
+                <div class="space-y-2">
+                    <h3 class="text-2xl font-bold text-white" data-i18n="aboutTitle">About Developer & Founder</h3>
+                    <p class="text-slate-300 text-sm leading-relaxed" data-i18n="aboutDesc">
+                        Toon Mint AI is built to empower creators to easily generate original, copyright-free 3D cartoons and anime videos with cutting-edge AI technology.
+                    </p>
+                </div>
+                <div class="pt-2 border-t border-slate-800/80">
+                    <p class="text-lg font-semibold text-white"><span data-i18n="founderText">Founder & Creator</span>: <span class="text-purple-400 font-bold">Subhash Yadav</span></p>
+                </div>
+                <div class="flex justify-center space-x-6 pt-2 text-sm font-medium">
+                    <span class="text-pink-400">Instagram: @iamsubhash177</span>
+                    <span class="text-purple-400">Email: yahu9950@gmail.com</span>
+                </div>
+            </div>
+        </div>
+
     </main>
-
-    <!-- About / Developer Section -->
-    <section id="about" class="max-w-5xl mx-auto px-4 py-8 w-full">
-        <div class="glass-card rounded-3xl p-8 border border-slate-800 text-center space-y-4">
-            <h3 class="text-xl font-bold text-purple-300">About Developer & Founder</h3>
-            <p class="text-slate-300 max-w-xl mx-auto text-sm">
-                Toon Mint AI is engineered to give creators absolute freedom in making copyright-free 3D cartoons and anime videos using cutting-edge AI pipelines.
-            </p>
-            <div class="pt-2">
-                <p class="text-base font-semibold text-white">Founder & Creator: <span class="text-purple-400 font-bold">Subhash Yadav</span></p>
-            </div>
-            <div class="flex justify-center space-x-6 pt-2 text-sm">
-                <a href="https://instagram.com/iamsubhash177" target="_blank" class="text-pink-400 hover:underline flex items-center space-x-1">
-                    <span>Instagram: @iamsubhash177</span>
-                </a>
-                <a href="mailto:yahu9950@gmail.com" class="text-purple-400 hover:underline flex items-center space-x-1">
-                    <span>Email: yahu9950@gmail.com</span>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="text-center py-6 text-slate-500 text-xs border-t border-slate-900 mt-10">
+        <!-- Footer -->
+    <footer class="text-center py-6 text-slate-500 text-xs border-t border-slate-900">
         &copy; 2026 Toon Mint AI. All Rights Reserved. Designed & Developed by Subhash Yadav.
     </footer>
 
+    <!-- Comprehensive Global Multi-Language Translation Script -->
+    <script>
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('nav button').forEach(btn => {
+                btn.classList.remove('text-purple-400', 'bg-purple-950/40');
+                btn.classList.add('text-slate-400');
+            });
+            document.getElementById(tabId).classList.add('active');
+            const activeBtn = document.getElementById('btn-' + tabId);
+            if (activeBtn) {
+                activeBtn.classList.remove('text-slate-400');
+                activeBtn.classList.add('text-purple-400', 'bg-purple-950/40');
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        const dict = {
+            en: {
+                navHome: "Home", navCharacters: "Character Studio", navGenerator: "Video Studio", navAbout: "About Creator", launchApp: "Launch App",
+                homeBadge: "🚀 Next-Gen Original AI Animation Studio", homeTitle1: "Create Cinematic", homeTitleHighlight: "3D Cartoons & Anime", homeTitle2: "From Prompts",
+                homeDesc: "100% original, copyright-free funny cartoon videos, unique characters, and custom funny voiceovers built instantly with advanced AI.",
+                btnStartVideo: "Start Creating Video", btnExploreChar: "Explore Characters",
+                charStudioTitle: "Original Character Studio", charStudioDesc: "Select pre-built copyright-free characters or generate your custom character using AI prompts.",
+                foxDesc: "Funny smart fox style for comedy sketches.", botDesc: "Silly mechanical robot with hilarious expressions.", ninjaDesc: "Cute anime style ninja for funny action scenes.", alienDesc: "Weird cosmic creature with funny cartoon effects.",
+                selectBtn: "Select Character", customCharTitle: "✨ Create Your Custom Character via Prompt", customCharDesc: "Enter a detailed description of your unique character, dress, expressions, and style, then let AI generate it instantly.",
+                customCharPlaceholder: "e.g., A funny blue monster wearing sunglasses...", generateCharBtn: "Generate Character 🎨",
+                vidStudioTitle: "AI Video Generation Studio", vidStudioDesc: "Write your script/prompt or upload an image to render your 3D animation or anime video.",
+                promptLabel: "Video Prompt / Story Script", promptPlaceholder: "Describe your funny cartoon scene or anime action...",
+                imgUploadLabel: "Upload Reference Image (Optional)", voiceLabel: "Funny Voice Style",
+                voice1: "High Pitch Funny Cartoon Voice", voice2: "Silly Comic Villain Voice", voice3: "Energetic Anime Hero Voice",
+                generateVideoBtn: "Generate Animation Now 🎬", aboutTitle: "About Developer & Founder",
+                aboutDesc: "Toon Mint AI is built to empower creators to easily generate original, copyright-free 3D cartoons and anime videos with cutting-edge AI technology.",
+                founderText: "Founder & Creator"
+            },
+            hi: {
+                navHome: "होम", navCharacters: "कैरेक्टर स्टूडियो", navGenerator: "वीडियो स्टूडियो", navAbout: "क्रिएटर के बारे में", launchApp: "ऐप लॉन्च करें",
+                homeBadge: "🚀 अगली पीढ़ी का ओरिजिनल AI एनीमेशन स्टूडियो", homeTitle1: "सिनेमैटिक", homeTitleHighlight: "3D कार्टून और एनीमे", homeTitle2: "प्रॉम्प्ट से बनाएं",
+                homeDesc: "100% ओरिजिनल, कॉपीराइट-फ्री फनी कार्टून वीडियो, यूनिक कैरेक्टर्स और कस्टम फनी वॉयसओवर एडवांस AI से तुरंत बनाएं।",
+                btnStartVideo: "वीडियो बनाना शुरू करें", btnExploreChar: "कैरेक्टर देखें",
+                charStudioTitle: "ओरिजिनल कैरेक्टर स्टूडियो", charStudioDesc: "पहले से बने कॉपीराइट-फ्री कैरेक्टर चुनें या AI प्रॉम्प्ट से अपना खुद का कस्टम कैरेक्टर बनाएं।",
+                foxDesc: "कॉमेडी स्केच के लिए फनी स्मार्ट लोमड़ी स्टाइल।", botDesc: "मजेदार हरकतों वाला रोबोट।", ninjaDesc: "फनी एक्शन सीन के लिए क्यूट एनीमे निंजा।", alienDesc: "मजेदार कार्टून इफेक्ट्स वाला अजीब ब्रह्मांडीय प्राणी।",
+                selectBtn: "कैरेक्टर चुनें", customCharTitle: "✨ प्रॉम्प्ट से अपना खुद का कैरेक्टर बनाएं", customCharDesc: "अपने यूनिक कैरेक्टर, ड्रेस और एक्सप्रेशन का विवरण दर्ज करें और AI से तुरंत जनरेट कराएं।",
+                customCharPlaceholder: "जैसे, चश्मा पहना हुआ एक फनी नीला मॉन्स्टर...", generateCharBtn: "कैरेक्टर बनाएं 🎨",
+                vidStudioTitle: "AI वीडियो जनरेशन स्टूडियो", vidStudioDesc: "अपना प्रॉम्प्ट या स्क्रिप्ट लिखें और 3D एनीमेशन या एनीमे वीडियो रेंडर करें।",
+                promptLabel: "वीडियो प्रॉम्प्ट / स्टोरी स्क्रिप्ट", promptPlaceholder: "अपने फनी कार्टून सीन या एनीमे एक्शन का वर्णन करें...",
+                imgUploadLabel: "संदर्भ छवि अपलोड करें (वैकल्पिक)", voiceLabel: "फनी वॉइस स्टाइल",
+                voice1: "हाई पिच फनी कार्टून आवाज़", voice2: "मजेदार कॉमिक विलेन आवाज़", voice3: "एनर्जी से भरपूर एनीमे हीरो आवाज़",
+                generateVideoBtn: "एनीमेशन जनरेट करें 🎬", aboutTitle: "डेलवपर और फाउंडर के बारे में",
+                aboutDesc: "Toon Mint AI क्रिएटर्स को अत्याधुनिक AI तकनीक के साथ आसानी से ओरिजिनल, कॉपीराइट-फ्री 3D कार्टून और एनीमे वीडियो बनाने की शक्ति देता है।",
+                founderText: "फाउंडर और क्रिएटर"
+            },
+            ja: {
+                navHome: "ホーム", navCharacters: "キャラクター", navGenerator: "動画スタジオ", navAbout: "開発者について", launchApp: "アプリ起動",
+                homeBadge: "🚀 次世代オリジナルAIアニメーションスタジオ", homeTitle1: "プロンプトから", homeTitleHighlight: "3Dカートゥーン＆アニメ", homeTitle2: "を作成",
+                homeDesc: "最先端のAIで構築された100%オリジナルで著作権フリーの面白いカートゥーン動画とユニークなキャラクター。",
+                btnStartVideo: "動画作成を開始", btnExploreChar: "キャラクターを見る",
+                charStudioTitle: "オリジナルキャラクタースタジオ", charStudioDesc: "著作権フリーのキャラクターを選択するか、AIプロンプトでカスタムキャラクターを作成します。",
+                foxDesc: "コメディスケッチ用の面白いキツネ。", botDesc: "おかしな表情の機械ロボット。", ninjaDesc: "アクションシーン用の可愛い忍者。", alienDesc: "面白い効果音を持つ宇宙生物。",
+                selectBtn: "キャラクターを選択", customCharTitle: "✨ プロンプトからカスタムキャラクターを作成", customCharDesc: "ユニークなキャラクターの詳細を入力して、AIに即座に生成させます。",
+                customCharPlaceholder: "例: サングラスをかけた面白い青いモンスター...", generateCharBtn: "キャラクターを生成 🎨",
+                vidStudioTitle: "AI動画生成スタジオ", vidStudioDesc: "プロンプトを入力して3Dアニメーションやアニメ動画をレンダリングします。",
+                promptLabel: "動画プロンプト / ストーリー", promptPlaceholder: "面白いカートゥーンシーンを描写してください...",
+                imgUploadLabel: "参考画像をアップロード", voiceLabel: "面白いボイススタイル",
+                voice1: "高音質ファニーカートーンボイス", voice2: "コミカルヴィランボイス", voice3: "エネルギッシュアニメヒーロー",
+                generateVideoBtn: "今すぐアニメーション生成 🎬", aboutTitle: "開発者＆創設者について",
+                aboutDesc: "Toon Mint AIは、クリエイターがオリジナルで著作権フリーの3Dカートゥーンやアニメ動画を簡単に作成できるように構築されています。",
+                founderText: "創設者＆クリエイター"
+            },
+            ko: {
+                navHome: "홈", navCharacters: "캐릭터 스튜디오", navGenerator: "비디오 스튜디오", navAbout: "개발자 정보", launchApp: "앱 실행",
+                homeBadge: "🚀 차세대 오리지널 AI 애니메이션 스튜디오", homeTitle1: "프롬프트로", homeTitleHighlight: "3D 카툰 및 애니메이션", homeTitle2: "제작",
+                homeDesc: "첨단 AI로 즉시 제작되는 100% 오리지널, 저작권 없는 재미있는 카툰 비디오 및 고유 캐릭터.",
+                btnStartVideo: "동영상 제작 시작", btnExploreChar: "캐릭터 탐색",
+                charStudioTitle: "오리지널 캐릭터 스튜디오", charStudioDesc: "저작권 없는 캐릭터를 선택하거나 AI 프롬프트로 맞춤형 캐릭터를 만드세요.",
+                foxDesc: "코미디 스케치용 스마트 여우 스타일.", botDesc: "우스꽝스러운 표정의 기계 로봇.", ninjaDesc: "귀여운 애니메이션 스타일 닌자.", alienDesc: "재미있는 효과를 가진 외계 생명체.",
+                selectBtn: "캐릭터 선택", customCharTitle: "✨ 프롬프트로 커스텀 캐릭터 만들기", customCharDesc: "유니크한 캐릭터 설명을 입력하고 AI로 즉시 생성하세요.",
+                customCharPlaceholder: "예: 선글라스를 낀 파란색 괴물...", generateCharBtn: "캐릭터 생성 🎨",
+                vidStudioTitle: "AI 비디오 생성 스튜디오", vidStudioDesc: "프롬프트를 입력하여 3D 애니메이션이나 애니메이션 비디오를 만드세요.",
+                promptLabel: "비디오 프롬프트 / 스토리 스크립트", promptPlaceholder: "재미있는 카툰 장면에 대해 설명해주세요...",
+                imgUploadLabel: "참조 이미지 업로드", voiceLabel: "재미있는 목소리 스타일",
+                voice1: "고음 만화 목소리", voice2: "코믹 악당 목소리", voice3: "에너지 넘치는 애니메이션 영웅",
+                generateVideoBtn: "애니메이션 생성 🎬", aboutTitle: "개발자 및 창립자 소개",
+                aboutDesc: "Toon Mint AI는 크리에이터가 최첨단 AI 기술로 독창적이고 저작권 없는 3D 카툰과 애니메이션을 쉽게 만들 수 있도록 지원합니다.",
+                founderText: "창립자 및 제작자"
+            },
+            zh: {
+                navHome: "首页", navCharacters: "角色工作室", navGenerator: "视频工作室", navAbout: "关于作者", launchApp: "启动应用",
+                homeBadge: "🚀 新一代原创AI动画工作室", homeTitle1: "创作沉浸式", homeTitleHighlight: "3D卡通与动漫", homeTitle2: "通过提示词",
+                homeDesc: "使用先进AI即时构建100%原创、无版权的搞笑卡通视频和独特角色。",
+                btnStartVideo: "开始创作视频", btnExploreChar: "探索角色",
+                charStudioTitle: "原创角色工作室", charStudioDesc: "选择免版权预设角色，或使用AI提示词生成自定义角色。",
+                foxDesc: "喜剧短剧专用的搞笑聪明狐狸。", botDesc: "表情滑稽的机械机器人。", ninjaDesc: "搞笑动作场景的可爱动漫忍者。", alienDesc: "带有搞笑卡通音效的外星生物。",
+                selectBtn: "选择角色", customCharTitle: "✨ 通过提示词创建自定义角色", customCharDesc: "输入您独特角色的详细描述，让AI立即生成。",
+                customCharPlaceholder: "例如：一个戴着墨镜的搞笑蓝色小怪物...", generateCharBtn: "生成角色 🎨",
+                vidStudioTitle: "AI视频生成工作室", vidStudioDesc: "编写脚本或提示词，渲染您的3D动画或动漫视频。",
+                promptLabel: "视频提示词 / 剧情脚本", promptPlaceholder: "描述您的搞笑卡通场景或动漫动作...",
+                imgUploadLabel: "上传参考图片（可选）", voiceLabel: "搞笑配音风格",
+                voice1: "高音调搞笑卡通配音", voice2: "滑稽反派配音", voice3: "充满活力的动漫英雄",
+                generateVideoBtn: "立即生成动画 🎬", aboutTitle: "关于开发者与创始人",
+                aboutDesc: "Toon Mint AI旨在赋能创作者，利用尖端AI技术轻松生成原创、免版权的3D卡通和动漫视频。",
+                founderText: "创始人兼创作者"
+            },
+            es: {
+                navHome: "Inicio", navCharacters: "Estudio de Personajes", navGenerator: "Estudio de Video", navAbout: "Sobre el Creador", launchApp: "Iniciar App",
+                homeBadge: "🚀 Estudio de Animación AI Original de Nueva Generación", homeTitle1: "Crea Animaciones", homeTitleHighlight: "3D y Anime", homeTitle2: "Desde Indicaciones",
+                homeDesc: "Videos de dibujos animados divertidos 100% originales y sin derechos de autor creados al instante con IA avanzada.",
+                btnStartVideo: "Empezar a Crear Video", btnExploreChar: "Explorar Personajes",
+                charStudioTitle: "Estudio de Personajes Originales", charStudioDesc: "Selecciona personajes sin derechos de autor o genera tu propio personaje personalizado.",
+                foxDesc: "Zorro inteligente y divertido para sketches.", botDesc: "Robot mecánico tonto con expresiones divertidas.", ninjaDesc: "Ninja de estilo anime lindo para acción.", alienDesc: "Extraña criatura cósmica con efectos divertidos.",
+                selectBtn: "Seleccionar Personaje", customCharTitle: "✨ Crea tu Personaje Personalizado", customCharDesc: "Ingresa una descripción detallada de tu personaje único y deja que la IA lo genere.",
+                customCharPlaceholder: "ej., Un monstruo azul divertido con gafas de sol...", generateCharBtn: "Generar Personaje 🎨",
+                vidStudioTitle: "Estudio de Generación de Video AI", vidStudioDesc: "Escribe tu guion o indicador para renderizar tu video 3D o anime.",
+                promptLabel: "Indicación de Video / Guion", promptPlaceholder: "Describe tu escena de dibujos animados divertida...",
+                imgUploadLabel: "Subir Imagen de Referencia (Opcional)", voiceLabel: "Estilo de Voz Divertida",
+                voice1: "Voz de dibujos animados aguda", voice2: "Voz de villano cómico tonto", voice3: "Héroe de anime enérgico",
+                generateVideoBtn: "Generar Animación Ahora 🎬", aboutTitle: "Acerca del Desarrollador",
+                aboutDesc: "Toon Mint AI está diseñado para permitir a los creadores generar fácilmente videos de dibujos animados 3D originales y libres de derechos.",
+                founderText: "Fundador y Creador"
+            }
+        };
+
+        function changeLanguage(lang) {
+            const t = dict[lang] || dict['en'];
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (t[key]) el.innerText = t[key];
+            });
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if (t[key]) el.setAttribute('placeholder', t[key]);
+            });
+        }
+    </script>
 </body>
 </html>
-    
