@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toon Mint AI - 3D Cartoon & Anime Video Generator</title>
+    <!-- Tailwind CSS for modern styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-950 text-white font-sans">
+
+    <!-- Header Section -->
+    <header class="bg-slate-900 border-b border-slate-800 p-4 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">
+                🎬 Toon Mint AI
+            </h1>
+            <nav class="space-x-4 text-sm md:text-base">
+                <a href="#generator" class="hover:text-purple-400 transition">Generator</a>
+                <a href="#about" class="hover:text-purple-400 transition">About Creator</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Generator Section -->
+    <main id="generator" class="max-w-4xl mx-auto p-6 my-8 bg-slate-900 rounded-2xl border border-slate-800 shadow-xl">
+        <h2 class="text-3xl font-bold text-center mb-6 text-purple-300">Create Your 3D Cartoon & Anime Video</h2>
+        
+        <div class="space-y-6">
+            <!-- Prompt Input -->
+            <div>
+                <label class="block text-sm font-medium mb-2 text-slate-300">Enter Your Prompt (e.g., Tom and Jerry style funny fight, 3D animation)</label>
+                <textarea rows="3" class="w-full p-3 bg-slate-800 border border-slate-700 rounded-lg focus:ring-2 focus:ring-purple-500 focus:outline-none text-white" placeholder="Type your story or prompt here..."></textarea>
+            </div>
+
+            <!-- Image to Video Upload -->
+            <div>
+                <label class="block text-sm font-medium mb-2 text-slate-300">Upload Reference Image (Optional for Image-to-Video)</label>
+                <input type="file" class="w-full p-2 bg-slate-800 border border-slate-700 rounded-lg text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-purple-600 file:text-white hover:file:bg-purple-700 cursor-pointer">
+            </div>
+
+            <!-- Options Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Voice Style -->
+                <div>
+                    <label class="block text-sm font-medium mb-2 text-slate-300">Select Funny Voice Style</label>
+                    <select class="w-full p-3 bg-slate-800 border border-slate-700 rounded-lg focus:outline-none bg-slate-800 text-white">
+                        <option>Funny Cartoon Squeaky Voice</option>
+                        <option>Cockroach Style Funny Voice</option>
+                        <option>Deep Comic Villain Voice</option>
+                        <option>Anime Energetic Voice</option>
+                    </select>
+                </div>
+
+                <!-- Resolution -->
+                <div>
+                    <label class="block text-sm font-medium mb-2 text-slate-300">Select Resolution</label>
+                    <select class="w-full p-3 bg-slate-800 border border-slate-700 rounded-lg focus:outline-none bg-slate-800 text-white">
+                        <option>1080p Full HD (YouTube)</option>
+                        <option>720p HD (Shorts / Reels)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Generate Button -->
+            <button onclick="alert('Video generation feature is ready to connect with AI backend!')" class="w-full py-4 bg-gradient-to-r from-purple-600 to-pink-600 font-bold rounded-lg shadow-lg hover:opacity-90 transition duration-200 cursor-pointer">
+                Generate Video Now 🚀
+            </button>
+        </div>
+    </main>
+
+    <!-- About / Developer Section -->
+    <section id="about" class="max-w-4xl mx-auto p-6 my-8 bg-slate-900 rounded-2xl border border-slate-800">
+        <h3 class="text-2xl font-bold mb-4 text-purple-300 text-center">About Developer & Founder</h3>
+        <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 text-center space-y-3">
+            <p class="text-lg font-semibold text-white">Founder & Creator: <span class="text-purple-400">सुभाष यादव (Subhash Yadav)</span></p>
+            <p class="text-slate-300">Welcome to Toon Mint AI! Create your own unique, copyright-free 3D cartoons, anime, and funny videos effortlessly using advanced AI prompts and image-to-video tools.</p>
+            <div class="flex flex-col md:flex-row justify-center items-center space-y-2 md:space-y-0 md:space-x-6 pt-2">
+                <a href="https://instagram.com/iamsubhash177" target="_blank" class="text-pink-400 hover:underline">Instagram: @iamsubhash177</a>
+                <a href="mailto:yahu9950@gmail.com" class="text-purple-400 hover:underline">Email: yahu9950@gmail.com</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center py-6 text-slate-500 text-sm border-t border-slate-900">
+        &copy; 2026 Toon Mint AI. All Rights Reserved. Designed & Developed by Subhash Yadav.
+    </footer>
+
+</body>
+</html>
